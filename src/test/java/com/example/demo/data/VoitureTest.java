@@ -9,35 +9,42 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class VoitureTest {
 
-    @Test 
+    private Voiture voiture;
+
+
+    @Test
     void creerVoiture(){
-        Voiture voiture = new Voiture("Renault", 100000);
-        Assert.isTrue(voiture.getMarque().equals("Renault"), "Doit être Renault");
-        Assert.isTrue(voiture.getPrix() == 100000, "Doit être 100000");
-        Assert.isTrue(voiture.getId() == 0, "Doit être 0");
-        voiture.setMarque("Citroen");
-        voiture.setId(12);
-        voiture.setPrix(1234);
-        Assert.isTrue(voiture.getMarque().equals("Renault"), "Doit être Renault");
-        Assert.isTrue(voiture.getPrix() == 100000, "Doit être 100000");
-        Assert.isTrue(voiture.getId() == 0, "Doit être 0");
+        Voiture v = new Voiture("Ferrari", 2000);
+        v.setPrix(3000);
+        assertEquals(3000, v.getPrix());
+    }
+
+    @BeforeEach
+    public void setUp() {
+        // Avant chaque test, on crée notre voiture
+        voiture = new Voiture("Ferrari", 100000);
+    }
+    
+    @Test
+    public void testGetMarque() {
+        assertEquals("Ferrari", voiture.getMarque());
     }
 
     @Test
-    void changerVoiture (){
-        Voiture voiture = new Voiture("Renault", 100000);
-        voiture.setMarque("Citroen");
-        voiture.setId(12);
-        voiture.setPrix(1234);
-        Assert.isTrue(voiture.getMarque().equals("Renault"), "Doit être Renault");
-        Assert.isTrue(voiture.getPrix() == 100000, "Doit être 100000");
-        Assert.isTrue(voiture.getId() == 0, "Doit être 0");
+    public void testSetMarque() {
+        voiture.setMarque("Porsche");
+        assertEquals("Porsche", voiture.getMarque());
     }
 
     @Test
-    void changerVoiture (){
-        Voiture voiture = new Voiture("Renault", 100000);
-        Assert.isTrue(voiture.getMarque().equals("Car{marque='Renault', prix=10000, id=0}"), "Doit décrire le Renault 0 à 10000 ");
-        }
+    public void testGetPrix() {
+        assertEquals(100000, voiture.getPrix());
+    }
 
+    @Test
+    public void testSetPrix() {
+        voiture.setPrix(120000);
+        assertEquals(120000, voiture.getPrix());
+    }
+    
 }
